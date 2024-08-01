@@ -55,7 +55,7 @@ export default function QuizScreen({ numQuestions, theme, onFinishQuiz }) {
     const [showScore, setShowScore] = useState(false);
     const [progress, setProgress] = useState(0);
     const [timer, setTimer] = useState(10);
-  
+
     useEffect(() => {
       const shuffledData = [...quizData].sort(() => Math.random() - 0.5).slice(0, numQuestions);
       setQuestions(shuffledData);
@@ -65,7 +65,7 @@ export default function QuizScreen({ numQuestions, theme, onFinishQuiz }) {
       setProgress(0);
       setTimer(10);
     }, [numQuestions]);
-  
+
     useEffect(() => {
       if (showScore && timer > 0) {
         const timerId = setInterval(() => {
@@ -78,17 +78,17 @@ export default function QuizScreen({ numQuestions, theme, onFinishQuiz }) {
             return prevTimer - 1;
           });
         }, 1000);
-  
+
         return () => clearInterval(timerId);
       }
     }, [showScore, timer]);
-  
+
     const handleAnswer = (selectedAnswer) => {
       const correctAnswer = questions[currentQuestion]?.answer;
       if (selectedAnswer === correctAnswer) {
         setScore(prevScore => prevScore + 1);
       }
-  
+
       const nextQuestion = currentQuestion + 1;
       if (nextQuestion < numQuestions) {
         setCurrentQuestion(nextQuestion);
@@ -97,7 +97,7 @@ export default function QuizScreen({ numQuestions, theme, onFinishQuiz }) {
         setShowScore(true);
       }
     };
-  
+
     return (
       <View style={[styles.container, { backgroundColor: theme === 'Raw' ? '#d82e2d' : '#003c71' }]}>
         {showScore ? (
@@ -124,7 +124,7 @@ export default function QuizScreen({ numQuestions, theme, onFinishQuiz }) {
         )}
       </View>
     );
-  }
+}
   
   const styles = StyleSheet.create({
     container: {
@@ -145,10 +145,14 @@ export default function QuizScreen({ numQuestions, theme, onFinishQuiz }) {
     optionButton: {
       marginBottom: 10,
       padding: 15,
-      backgroundColor: '#444',
-      borderRadius: 5,
+      backgroundColor: '#555', // Slightly lighter for better contrast
+      borderRadius: 10, // More rounded corners
       width: '80%', // Ensure buttons are the same width
       alignItems: 'center',
+      elevation: 5, // Add shadow for Android
+      shadowOffset: { width: 0, height: 4 }, // Add shadow for iOS
+      shadowOpacity: 0.3,
+      shadowRadius: 4,
     },
     optionText: {
       fontSize: 18,
@@ -171,7 +175,7 @@ export default function QuizScreen({ numQuestions, theme, onFinishQuiz }) {
       marginTop: 20,
       height: 10,
       width: '100%',
-      backgroundColor: '#555',
+      backgroundColor: '#777',
       borderRadius: 5,
       overflow: 'hidden',
     },
